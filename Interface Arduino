@@ -1,0 +1,24 @@
+#include <AFMotor.h>
+AF_Stepper stepper2(20,2);
+
+void setup() {
+Serial.begin(9600);  
+stepper2.setSpeed(500);
+
+}
+
+void loop() {
+  if(Serial.available()){
+    char dato = Serial.read();
+
+if(dato == 'D')
+{
+stepper2.step(250, FORWARD, MICROSTEP);  
+}
+  if(dato == 'I')
+{
+stepper2.step(250, BACKWARD, MICROSTEP);
+}  
+  }
+
+}
