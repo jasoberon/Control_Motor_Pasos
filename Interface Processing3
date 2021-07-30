@@ -1,0 +1,53 @@
+import controlP5.*; //se importa la librería
+import processing.serial.*;
+
+Serial port;
+
+ControlP5 cp5;  //creamos un objeto ControlP5
+PFont font;    // variable para cambiar font
+
+void setup(){
+   size(300, 400);  // tamaño de la ventana (ancho, largo)
+   
+   printArray(Serial.list());
+   
+   port = new Serial(this, "COM7", 9600);
+   
+   // agregamos dos botones
+   
+   cp5 = new ControlP5(this);
+   font = createFont("arial light bold", 10);  //crea font
+   
+   cp5.addButton("IZQUIERDA")   //entre comillas va el nombre del botón
+   .setPosition(70,50)       //x,y coord de parte sup izq del botón
+   .setSize(60,60)           //(largo, ancho)
+   .setFont(font)
+   ;
+   
+   cp5.addButton("DERECHA")   //entre comillas va el nombre del botón
+   .setPosition(160,50)       //x,y coord de parte sup izq del botón
+   .setSize(60,60)           //(largo, ancho) 
+   .setFont(font)
+   ;
+   
+}
+
+void draw(){
+ background(0,150,0);  //color de fondo de la ventana (r,g,b) 0 (0 a 255) 
+  
+  //agregamos texto a la ventana
+  fill (250,250,250);     //color del texto (r,g,b)
+  textFont(font);         //font de acuerdo a la variable font
+  text("CONTROL DE MOTOR DE PASOS", 65, 30);  //("texto", coord x, coord y)   
+}
+
+void DERECHA()
+{
+ port.write('D'); 
+   
+  }
+
+void IZQUIERDA()
+{
+ port.write('I'); 
+}
